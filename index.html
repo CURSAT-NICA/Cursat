@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Arial, sans-serif; background: #f4f4f4;
+      min-height: 100vh; display: grid; place-items: center;
+    }
+    .card {
+      width: 320px; background: #fff; padding: 20px; border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+    h2 { margin: 0 0 16px; text-align: center; }
+    label { font-size: 14px; display: block; margin: 10px 0 6px; }
+    input {
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;
+    }
+    button {
+      width: 100%; margin-top: 14px; padding: 10px; border: 0; border-radius: 8px;
+      background: #2e7d32; color: #fff; font-weight: 600; cursor: pointer;
+    }
+    button:hover { filter: brightness(0.95); }
+    .hint { font-size: 12px; color: #666; text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Log In</h2>
+    <form onsubmit="event.preventDefault(); alert('This is a front-end demo only.');">
+      <label for="user">Username</label>
+      <input id="user" type="text" placeholder="Enter username" required>
+
+      <label for="pass">Password</label>
+      <input id="pass" type="password" placeholder="Enter password" required>
+
+      <button type="submit">Log In</button>
+    </form>
+    <p class="hint">No backend yet—UI only.</p>
+  </div>
+</body>
+</html>
