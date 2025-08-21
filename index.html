@@ -7,81 +7,119 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: #f4f4f4;
+      margin: 0;
     }
-    .login-box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 300px;
+    .login-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 350px;
     }
-    .login-box h2 {
+    h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
+      color: #333;
     }
-    .login-box input {
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+      color: #444;
+    }
+    input {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 1rem;
     }
-    .login-box button {
+    .toggle-password {
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #007bff;
+      background: none;
+      border: none;
+      float: right;
+      margin-top: -2.5rem;
+      margin-right: 0.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    button {
       width: 100%;
-      padding: 10px;
+      padding: 0.9rem;
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 1rem;
       cursor: pointer;
     }
-    .login-box button:hover {
+    button:hover {
       background: #0056b3;
     }
-    .error {
-      color: red;
-      font-size: 14px;
+    .message {
+      margin-top: 1rem;
       text-align: center;
+      font-size: 0.9rem;
+      color: red;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="login-box">
+  <div class="login-container">
     <h2>Login</h2>
     <form id="loginForm">
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <input type="checkbox" id="showPassword"> Show Password
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required aria-required="true" placeholder="Enter your username">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required aria-required="true" placeholder="Enter your password">
+      <button type="button" class="toggle-password" onclick="togglePassword()">Show</button>
+
       <button type="submit">Login</button>
-      <p id="errorMessage" class="error"></p>
+      <p class="message" id="message"></p>
     </form>
   </div>
 
   <script>
-    const loginForm = document.getElementById("loginForm");
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    const errorMessage = document.getElementById("errorMessage");
-    const showPassword = document.getElementById("showPassword");
-
-    // Toggle password visibility
-    showPassword.addEventListener("change", () => {
-      password.type = showPassword.checked ? "text" : "password";
-    });
-
-    // Form validation
-    loginForm.addEventListener("submit", function(event) {
-      event.preventDefault(); // prevent page reload
-      if (username.value === "" || password.value === "") {
-        errorMessage.textContent = "⚠️ Please enter both username and password.";
+    // Toggle show/hide password
+    function togglePassword() {
+      const passwordField = document.getElementById("password");
+      const toggleBtn = document.querySelector(".toggle-password");
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleBtn.textContent = "Hide";
       } else {
-        errorMessage.textContent = "";
-        alert("✅ Logged in successfully! (Demo only)");
+        passwordField.type = "password";
+        toggleBtn.textContent = "Show";
+      }
+    }
+
+    // Simple form validation feedback
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const message = document.getElementById("message");
+
+      if (username === "" || password === "") {
+        message.textContent = "⚠️ Please fill in both fields.";
+        message.style.color = "red";
+        message.style.display = "block";
+      } else {
+        message.textContent = "✅ Login successful (demo only).";
+        message.style.color = "green";
+        message.style.display = "block";
       }
     });
   </script>
