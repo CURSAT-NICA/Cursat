@@ -1,203 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Form</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessible Login Form</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      height: 100vh;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: url("background.jpg") no-repeat center center fixed;
-      background-size: cover;
-      transition: background 0.3s, color 0.3s;
+      height: 100vh;
+      background: url('background.jpg') no-repeat center center/cover; /* optional background */
+      transition: background-color 0.3s ease;
     }
 
     body.light {
-      background: #f5f5f5;
+      background-color: #f5f5f5;
       color: #333;
     }
-
     body.dark {
-      background: #121212;
+      background-color: #121212;
       color: #f5f5f5;
+    }
+
+    .offline-banner {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ff4d4d;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+      z-index: 1000;
     }
 
     .login-container {
       background: rgba(255, 255, 255, 0.9);
-      padding: 20px;
+      padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-      width: 300px;
-      transition: background 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
     }
 
-    body.dark .login-container {
-      background: rgba(30, 30, 30, 0.9);
-    }
-
-    h2 {
+    .login-container h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
     }
 
     label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 0.5rem;
       font-weight: bold;
     }
 
     input {
       width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
+      padding: 10px;
+      margin-bottom: 1rem;
       border: 1px solid #ccc;
       border-radius: 5px;
-      transition: border 0.3s;
+      font-size: 1rem;
     }
 
-    input:focus {
-      border: 1px solid #007BFF;
-      outline: none;
-    }
-
-    .password-container {
+    .password-wrapper {
       position: relative;
     }
 
-    .eye-icon {
+    .toggle-password {
       position: absolute;
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
+      background: none;
+      border: none;
       cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .feedback {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
     }
 
     button {
       width: 100%;
-      padding: 10px;
-      background: #007BFF;
+      padding: 12px;
       border: none;
-      color: white;
-      font-size: 16px;
       border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
+      background: #007BFF;
+      color: white;
+      font-size: 1rem;
+      cursor: not-allowed;
+      transition: background 0.3s ease;
     }
 
-    button:disabled {
-      background: #aaa;
-      cursor: not-allowed;
+    button.enabled {
+      cursor: pointer;
+      background: #28a745;
     }
 
     button:active {
-      background: #0056b3;
-    }
-
-    .banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: red;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      display: none;
-      font-weight: bold;
+      background: #218838;
     }
 
     .theme-switch {
-      margin-top: 15px;
       text-align: center;
+      margin-top: 1rem;
     }
 
     .theme-switch button {
-      width: auto;
-      padding: 8px 15px;
-      font-size: 14px;
+      background: #6c757d;
+      margin-top: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .login-container {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body class="light">
-  <div class="banner" id="offlineBanner">⚠️ You are offline</div>
-  
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <label for="username">Username</label>
-      <input type="text" id="username" required>
+  <div class="offline-banner" id="offlineBanner">⚠️ You are offline</div>
+  <div class="login-container" role="form" aria-labelledby="loginTitle">
+    <h2 id="loginTitle">Login</h2>
 
-      <label for="password">Password</label>
-      <div class="password-container">
-        <input type="password" id="password" required>
-        <span class="eye-icon" id="togglePassword">👁️</span>
-      </div>
+    <div class="feedback" id="feedback">Please fill in all fields correctly.</div>
 
-      <button type="submit" id="loginBtn" disabled>Login</button>
-    </form>
+    <label for="username">Username</label>
+    <input type="text" id="username" aria-required="true" placeholder="Enter username" />
+
+    <label for="password">Password</label>
+    <div class="password-wrapper">
+      <input type="password" id="password" aria-required="true" placeholder="Enter password" />
+      <button type="button" class="toggle-password" aria-label="Show or hide password">👁️</button>
+    </div>
+
+    <button id="loginBtn" disabled>Login</button>
+
     <div class="theme-switch">
-      <button id="themeToggle">Switch to Dark Mode</button>
+      <p>Switch Theme</p>
+      <button id="themeToggle">Toggle Dark/Light</button>
     </div>
   </div>
 
   <script>
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    const loginBtn = document.getElementById("loginBtn");
-    const togglePassword = document.getElementById("togglePassword");
-    const offlineBanner = document.getElementById("offlineBanner");
-    const themeToggle = document.getElementById("themeToggle");
-    const body = document.body;
+    const username = document.getElementById('username');
+    const password = document.getElementById('password');
+    const loginBtn = document.getElementById('loginBtn');
+    const feedback = document.getElementById('feedback');
+    const togglePassword = document.querySelector('.toggle-password');
+    const themeToggle = document.getElementById('themeToggle');
+    const offlineBanner = document.getElementById('offlineBanner');
 
-    // Enable button only when fields are filled
-    function checkInputs() {
-      loginBtn.disabled = !(username.value && password.value);
+    // Enable/disable button based on input
+    function checkFields() {
+      if (username.value.trim() && password.value.trim()) {
+        loginBtn.disabled = false;
+        loginBtn.classList.add('enabled');
+      } else {
+        loginBtn.disabled = true;
+        loginBtn.classList.remove('enabled');
+      }
     }
-    username.addEventListener("input", checkInputs);
-    password.addEventListener("input", checkInputs);
+
+    username.addEventListener('input', checkFields);
+    password.addEventListener('input', checkFields);
 
     // Toggle password visibility
-    togglePassword.addEventListener("click", () => {
-      if (password.type === "password") {
-        password.type = "text";
-        togglePassword.textContent = "🙈";
+    togglePassword.addEventListener('click', () => {
+      const type = password.type === 'password' ? 'text' : 'password';
+      password.type = type;
+      togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+
+    // Simulate login with feedback
+    loginBtn.addEventListener('click', () => {
+      if (!username.value || !password.value) {
+        feedback.style.display = 'block';
       } else {
-        password.type = "password";
-        togglePassword.textContent = "👁️";
+        feedback.style.display = 'none';
+        alert('✅ Login successful!');
       }
+    });
+
+    // Theme switcher
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
     });
 
     // Offline/online detection
-    window.addEventListener("offline", () => {
-      offlineBanner.style.display = "block";
-    });
-    window.addEventListener("online", () => {
-      offlineBanner.style.display = "none";
-    });
-
-    // Theme switch
-    themeToggle.addEventListener("click", () => {
-      if (body.classList.contains("light")) {
-        body.classList.remove("light");
-        body.classList.add("dark");
-        themeToggle.textContent = "Switch to Light Mode";
+    function updateOnlineStatus() {
+      if (!navigator.onLine) {
+        offlineBanner.style.display = 'block';
       } else {
-        body.classList.remove("dark");
-        body.classList.add("light");
-        themeToggle.textContent = "Switch to Dark Mode";
+        offlineBanner.style.display = 'none';
       }
-    });
-
-    // Simulate form submission
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Login successful (demo only).");
-    });
+    }
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus(); // initial check
   </script>
 </body>
 </html>
