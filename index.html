@@ -7,71 +7,89 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f7fa;
+      background: #f4f7f9;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
+
     .login-container {
       background: #fff;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       width: 100%;
-      max-width: 350px;
+      max-width: 360px;
     }
+
     h2 {
       text-align: center;
       margin-bottom: 1.5rem;
       color: #333;
     }
+
     label {
       display: block;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
       font-weight: bold;
       color: #444;
     }
-    input {
+
+    input[type="text"],
+    input[type="password"] {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.75rem;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1rem;
     }
-    .toggle-password {
-      cursor: pointer;
-      font-size: 0.9rem;
-      color: #007bff;
-      background: none;
-      border: none;
-      float: right;
-      margin-top: -2.5rem;
-      margin-right: 0.5rem;
-      position: relative;
-      z-index: 2;
+
+    input:focus {
+      border-color: #007BFF;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0,123,255,0.3);
     }
+
     button {
       width: 100%;
-      padding: 0.9rem;
-      background: #007bff;
-      color: white;
+      padding: 0.75rem;
+      background: #007BFF;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
+      color: #fff;
       font-size: 1rem;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
+
     button:hover {
       background: #0056b3;
     }
-    .message {
+
+    .feedback {
       margin-top: 1rem;
       text-align: center;
       font-size: 0.9rem;
       color: red;
       display: none;
+    }
+
+    .links {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .links a {
+      color: #007BFF;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -84,42 +102,36 @@
 
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required aria-required="true" placeholder="Enter your password">
-      <button type="button" class="toggle-password" onclick="togglePassword()">Show</button>
 
       <button type="submit">Login</button>
-      <p class="message" id="message"></p>
+      <p class="feedback" id="feedback"></p>
     </form>
+
+    <div class="links">
+      <a href="#">Forgot password?</a> | <a href="#">Create account</a>
+    </div>
   </div>
 
   <script>
-    // Toggle show/hide password
-    function togglePassword() {
-      const passwordField = document.getElementById("password");
-      const toggleBtn = document.querySelector(".toggle-password");
-      if (passwordField.type === "password") {
-        passwordField.type = "text";
-        toggleBtn.textContent = "Hide";
-      } else {
-        passwordField.type = "password";
-        toggleBtn.textContent = "Show";
-      }
-    }
+    const form = document.getElementById("loginForm");
+    const feedback = document.getElementById("feedback");
 
-    // Simple form validation feedback
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault(); 
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent reload
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
-      const message = document.getElementById("message");
 
       if (username === "" || password === "") {
-        message.textContent = "⚠️ Please fill in both fields.";
-        message.style.color = "red";
-        message.style.display = "block";
+        feedback.style.display = "block";
+        feedback.textContent = "Please fill in all fields.";
+      } else if (username === "admin" && password === "1234") {
+        feedback.style.display = "block";
+        feedback.style.color = "green";
+        feedback.textContent = "Login successful!";
       } else {
-        message.textContent = "✅ Login successful (demo only).";
-        message.style.color = "green";
-        message.style.display = "block";
+        feedback.style.display = "block";
+        feedback.style.color = "red";
+        feedback.textContent = "Invalid username or password.";
       }
     });
   </script>
