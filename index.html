@@ -1,215 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accessible Login Form</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: url('background.jpg') no-repeat center center/cover; /* optional background */
-      transition: background-color 0.3s ease;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Login Page | Caged coder</title>
+  </head>
 
-    body.light {
-      background-color: #f5f5f5;
-      color: #333;
-    }
-    body.dark {
-      background-color: #121212;
-      color: #f5f5f5;
-    }
-
-    .offline-banner {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #ff4d4d;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      font-weight: bold;
-      z-index: 1000;
-    }
-
-    .login-container {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .login-container h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-
-    .password-wrapper {
-      position: relative;
-    }
-
-    .toggle-password {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    .feedback {
-      color: red;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      display: none;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      background: #007BFF;
-      color: white;
-      font-size: 1rem;
-      cursor: not-allowed;
-      transition: background 0.3s ease;
-    }
-
-    button.enabled {
-      cursor: pointer;
-      background: #28a745;
-    }
-
-    button:active {
-      background: #218838;
-    }
-
-    .theme-switch {
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .theme-switch button {
-      background: #6c757d;
-      margin-top: 0.5rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .login-container {
-        padding: 1rem;
-      }
-    }
-  </style>
-</head>
-<body class="light">
-  <div class="offline-banner" id="offlineBanner">⚠️ You are offline</div>
-  <div class="login-container" role="form" aria-labelledby="loginTitle">
-    <h2 id="loginTitle">Login</h2>
-
-    <div class="feedback" id="feedback">Please fill in all fields correctly.</div>
-
-    <label for="username">Username</label>
-    <input type="text" id="username" aria-required="true" placeholder="Enter username" />
-
-    <label for="password">Password</label>
-    <div class="password-wrapper">
-      <input type="password" id="password" aria-required="true" placeholder="Enter password" />
-      <button type="button" class="toggle-password" aria-label="Show or hide password">👁️</button>
+  <body>
+    <div class="container" id="container">
+      <div class="form-container sign-up">
+        <form>
+          <h1>Create Account</h1>
+          <div class="social-icons">
+            <a href="#" class="icon"
+              ><i class="fa-brands fa-google-plus-g"></i
+            ></a>
+            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="icon"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+          <span>or use your email for registeration</span>
+          <input type="text" placeholder="Name" />
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <button>Sign Up</button>
+        </form>
+      </div>
+      <div class="form-container sign-in">
+        <form>
+          <h1>Sign In</h1>
+          <div class="social-icons">
+            <a href="#" class="icon"
+              ><i class="fa-brands fa-google-plus-g"></i
+            ></a>
+            <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="icon"
+              ><i class="fa-brands fa-linkedin-in"></i
+            ></a>
+          </div>
+          <span>or use your email password</span>
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <a href="#">Forget Your Password?</a>
+          <button>Sign In</button>
+        </form>
+      </div>
+      <div class="toggle-container">
+        <div class="toggle">
+          <div class="toggle-panel toggle-left">
+            <h1>Welcome Back!</h1>
+            <p>Enter your personal details to use all of site features</p>
+            <button class="hidden" id="login">Sign In</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+            <h1>Hello, Friend!</h1>
+            <p>
+              Register with your personal details to use all of site features
+            </p>
+            <button class="hidden" id="register">Sign Up</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <button id="loginBtn" disabled>Login</button>
-
-    <div class="theme-switch">
-      <p>Switch Theme</p>
-      <button id="themeToggle">Toggle Dark/Light</button>
-    </div>
-  </div>
-
-  <script>
-    const username = document.getElementById('username');
-    const password = document.getElementById('password');
-    const loginBtn = document.getElementById('loginBtn');
-    const feedback = document.getElementById('feedback');
-    const togglePassword = document.querySelector('.toggle-password');
-    const themeToggle = document.getElementById('themeToggle');
-    const offlineBanner = document.getElementById('offlineBanner');
-
-    // Enable/disable button based on input
-    function checkFields() {
-      if (username.value.trim() && password.value.trim()) {
-        loginBtn.disabled = false;
-        loginBtn.classList.add('enabled');
-      } else {
-        loginBtn.disabled = true;
-        loginBtn.classList.remove('enabled');
-      }
-    }
-
-    username.addEventListener('input', checkFields);
-    password.addEventListener('input', checkFields);
-
-    // Toggle password visibility
-    togglePassword.addEventListener('click', () => {
-      const type = password.type === 'password' ? 'text' : 'password';
-      password.type = type;
-      togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
-    });
-
-    // Simulate login with feedback
-    loginBtn.addEventListener('click', () => {
-      if (!username.value || !password.value) {
-        feedback.style.display = 'block';
-      } else {
-        feedback.style.display = 'none';
-        alert('✅ Login successful!');
-      }
-    });
-
-    // Theme switcher
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-    });
-
-    // Offline/online detection
-    function updateOnlineStatus() {
-      if (!navigator.onLine) {
-        offlineBanner.style.display = 'block';
-      } else {
-        offlineBanner.style.display = 'none';
-      }
-    }
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-    updateOnlineStatus(); // initial check
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
